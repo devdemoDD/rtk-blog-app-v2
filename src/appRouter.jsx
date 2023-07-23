@@ -5,9 +5,11 @@ import Home from './pages/home';
 import SignUp from './pages/signup';
 import Login from './pages/login';
 
+const { BASE_URL } = import.meta.env;
+
 const AppRouter = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={BASE_URL}>
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />

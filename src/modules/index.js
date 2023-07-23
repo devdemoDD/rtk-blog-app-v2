@@ -11,9 +11,15 @@ const rootReducer = combineReducers({
   posts: postsSlice.reducer,
 });
 
-export const configure = () =>
-  configureStore({
+export const configure = () => {
+  const getMiddlewares = (getDefaultMiddleware) =>
+    MODE !== 'production'
+      ? getDefaultMiddleware().concat(logger)
+      : getDefaultMiddleware();
+
+  return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    middleware: (getDefaultMiddleware) => getMiddlewares(getDefaultMiddleware),
     devTools: MODE !== 'production',
   });
+};
